@@ -1,0 +1,44 @@
+{
+  "manifest_version": 2,
+  "name": "H-Header",
+  "version": "1.0.0",
+  "description": "修改Header的Chrome扩展",
+  "icons": {
+    "16": "img/icon.png",
+    "48": "img/icon.png",
+    "128": "img/icon.png"
+  },
+  "background": {
+    "page": "background.html"
+  },
+  "browser_action": {
+    "default_icon": "img/icon.png",
+    "default_title": "Header 配置",
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["js/start.js"],
+      "run_at": "document_start"
+    }
+  ],
+
+  "permissions": [
+    "contextMenus",
+    "tabs",
+    "notifications",
+    "webRequest",
+    "webRequestBlocking",
+    "storage",
+    "http://*/*",
+    "https://*/*"
+  ],
+  "web_accessible_resources": ["js/start.js"],
+  "homepage_url": "https://www.baidu.com",
+
+  "options_ui": {
+    "page": "options.html",
+    "chrome_style": true
+  }
+}

@@ -71,39 +71,38 @@ $(document).ready(function () {
     var self = $(this);
     self.removeClass().addClass('remove');
     select.addClass('open');
+
+    self.addClass('disappear');
     setTimeout(function () {
-      self.addClass('disappear');
-      setTimeout(function () {
-        self.animate(
-          {
-            width: 0,
-            height: 0,
-            padding: 0,
-            margin: 0
-          },
-          300,
-          function () {
-            var li = $('<li />')
-              .text(self.children('em').text())
-              .addClass('notShown')
-              .appendTo(select.find('ul'));
-            li.slideDown(400, function () {
-              li.addClass('show');
-              setTimeout(function () {
-                select
-                  .find('option:contains(' + self.children('em').text() + ')')
-                  .prop('selected', false);
-                if (!select.find('option:selected').length) {
-                  select.children('div').children('span').removeClass('hide');
-                }
-                li.removeClass();
-              }, 400);
-            });
-            self.remove();
-          }
-        );
-      }, 300);
-    }, 400);
+      self.animate(
+        {
+          width: 0,
+          height: 0,
+          padding: 0,
+          margin: 0
+        },
+        300,
+        function () {
+          var li = $('<li />')
+            .text(self.children('em').text())
+            .addClass('notShown')
+            .appendTo(select.find('ul'));
+          li.slideDown(400, function () {
+            li.addClass('show');
+            setTimeout(function () {
+              select
+                .find('option:contains(' + self.children('em').text() + ')')
+                .prop('selected', false);
+              if (!select.find('option:selected').length) {
+                select.children('div').children('span').removeClass('hide');
+              }
+              li.removeClass();
+            }, 400);
+          });
+          self.remove();
+        }
+      );
+    }, 300);
   });
 
   $(document).on(

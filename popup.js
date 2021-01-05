@@ -1,4 +1,5 @@
 let button = document.querySelector('.h-header__switch');
+let status = document.querySelector('.toggle-text');
 function updateCallback() {
   console.log('更新成功');
 }
@@ -15,6 +16,8 @@ button.addEventListener('click', e => {
     flag = true;
   }
 
+  status.innerText = flag ? '开启' : '关闭';
+
   chrome.runtime.sendMessage(
     {
       method: 'toggle',
@@ -23,4 +26,5 @@ button.addEventListener('click', e => {
     updateCallback
   );
 });
+
 button = null;

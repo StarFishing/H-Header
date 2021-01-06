@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Header</title>
     <link rel="stylesheet" href="popup.css" />
-    <!-- <link rel="stylesheet" href="select/style.css" /> -->
   </head>
   <body>
     <div class="h-header__wrapper">
@@ -24,14 +23,6 @@
       </div>
     </div>
     <div class="h-header__content">
-      <!-- <div class="h-header__edit-card">hello</div> -->
-      <!-- <select multiple data-placeholder="选择配置">
-        <option>Sketch</option>
-        <option selected>Framer X</option>
-        <option>Photoshop</option>
-        <option>Principle</option>
-        <option>Invision</option>
-      </select> -->
       <ul>
         <li class="option-item">
           <div class="item-left">
@@ -44,12 +35,35 @@
           </div>
         </li>
         <li class="option-item option-item-action">
-          <img src="img/新增.svg" class="icon" />
+          <img src="img/新增.svg" class="icon action-create" />
         </li>
       </ul>
     </div>
-    <!-- <script src="js/jquery.js"></script>
-    <script src="select/script.js"></script> -->
+
+    <div class="dialog h-header__edit-card">
+      <div class="content-wrapper">
+        <div class="title">添加Key</div>
+        <div class="content">
+          <input
+            type="text"
+            class="content-input"
+            placeholder="请输入header的key"
+          />
+        </div>
+
+        <div class="footer">
+          <img src="img/取消.svg" class="icon confirm" />
+          <img src="img/确认.svg" class="icon cancel" />
+        </div>
+      </div>
+    </div>
+
+    <div class="h-header__create">
+      <div class="header">
+        <img src="img/返回.svg" class="icon create-back" />
+        <img src="img/删除.svg" class="icon" />
+      </div>
+    </div>
     <script src="popup.js"></script>
   </body>
 </html>

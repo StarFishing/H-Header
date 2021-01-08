@@ -52,6 +52,12 @@ chrome.webRequest.onBeforeSendHeaders.addListener(
   ['requestHeaders', 'blocking']
 );
 
+function findDataItemById(id) {
+  return cache_data.find(item => {
+    return item.id === id;
+  });
+}
+
 /**
  * 第二个参数包含插件的基本id信息
  */
@@ -59,54 +65,39 @@ function handleMessage(config, origin, callback) {
   if (chrome.runtime.id == origin.id) {
     if (config.method === 'add-item' && config.value.key) {
       cache_data.push(config.value);
-      storageCacheData();
     }
     if (config.method === 'deleteItem') {
       cache_data = cache_data.filter(item => {
         return config.id !== item.id;
       });
-      storageCacheData();
     }
     if (config.method === 'updateItem') {
-      const dataItem = cache_data.find(item => {
-        return item.id === config.id;
-      });
+      const dataItem = findDataItemById(config.id);
       if (dataItem) {
         dataItem.value.push(config.value);
-        storageCacheData();
       }
     }
     if (config.method === 'openItem') {
-      const dataItem = cache_data.find(item => {
-        return item.id === config.id;
-      });
+      const dataItem = findDataItemById(config.id);
       if (dataItem) {
         dataItem.default = dataItem.value[config.index];
-        storageCacheData();
       }
     }
     if (config.method === 'deleteItemValue') {
-      const dataItem = cache_data.find(item => {
-        return item.id === config.id;
-      });
+      const dataItem = findDataItemById(config.id);
       if (dataItem) {
         const index = +config.index;
         dataItem.value.splice(index, 1);
         dataItem.default = dataItem.value[0];
-        storageCacheData();
       }
     }
     if (config.method === 'toggleStatus') {
-      const dataItem = cache_data.find(item => {
-        return item.id === config.id;
-      });
+      const dataItem = findDataItemById(config.id);
       if (dataItem) {
         dataItem.open = !dataItem.open;
-
-        storageCacheData();
       }
     }
-
+    storageCacheData();
     if (callback) callback();
   }
 }

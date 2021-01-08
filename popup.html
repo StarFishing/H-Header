@@ -23,37 +23,37 @@
       </div>
     </div>
     <div class="h-header__content">
-      <ul>
-        <li class="option-item">
-          <div class="item-left">
-            <div class="item-key">RPC-Register_name</div>
-            <div class="item-value">http-test</div>
-          </div>
-          <div class="item-right">
-            <div class="edit">编辑</div>
-            <div class="delet">删除</div>
-          </div>
-        </li>
+      <ul class="option-item__wrapper">
         <li class="option-item option-item-action">
           <img src="img/新增.svg" class="icon action-create" />
         </li>
       </ul>
     </div>
 
-    <div class="dialog h-header__edit-card">
-      <div class="content-wrapper">
-        <div class="title">添加Key</div>
-        <div class="content">
-          <input
-            type="text"
-            class="content-input"
-            placeholder="请输入header的key"
-          />
-        </div>
-
-        <div class="footer">
-          <img src="img/取消.svg" class="icon confirm" />
-          <img src="img/确认.svg" class="icon cancel" />
+    <div class="dialog-wrapper">
+      <div class="dialog h-header__edit-card">
+        <div class="content-wrapper">
+          <div class="title">添加Key</div>
+          <div class="content">
+            <input
+              spellcheck="false"
+              type="text"
+              class="content-input"
+              placeholder="请输入header的key"
+            />
+          </div>
+          <div class="title">添加Value</div>
+          <div class="content">
+            <textarea
+              spellcheck="false"
+              class="content-textarea content-input"
+              placeholder="请输入key对应的value,多行输入自动拆分"
+            ></textarea>
+          </div>
+          <div class="footer">
+            <img src="img/取消.svg" class="icon cancel" />
+            <img src="img/确认.svg" class="icon confirm" />
+          </div>
         </div>
       </div>
     </div>
@@ -61,9 +61,20 @@
     <div class="h-header__create">
       <div class="header">
         <img src="img/返回.svg" class="icon create-back" />
-        <img src="img/删除.svg" class="icon" />
+        <img src="img/删除.svg" class="icon delete-item" />
+      </div>
+      <div class="content"></div>
+      <div class="footer">
+        <input
+          spellcheck="false"
+          type="text"
+          class="content-input"
+          placeholder="请输入header的key"
+        />
+        <button class="btn send-value" disabled>添加</button>
       </div>
     </div>
+    <script src="js/utils.js"></script>
     <script src="popup.js"></script>
   </body>
 </html>

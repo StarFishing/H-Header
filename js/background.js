@@ -63,13 +63,13 @@ function handleMessage(config, origin, callback) {
     }
     if (config.method === 'deleteItem') {
       cache_data = cache_data.filter(item => {
-        return config.key !== item.key;
+        return config.id !== item.id;
       });
       storageCacheData();
     }
     if (config.method === 'updateItem') {
       const dataItem = cache_data.find(item => {
-        return item.key === config.key;
+        return item.id === config.id;
       });
       if (dataItem) {
         dataItem.value.push(config.value);
@@ -78,28 +78,27 @@ function handleMessage(config, origin, callback) {
     }
     if (config.method === 'openItem') {
       const dataItem = cache_data.find(item => {
-        return item.key === config.key;
+        return item.id === config.id;
       });
       if (dataItem) {
-        dataItem.default = config.value;
+        dataItem.default = dataItem.value[config.index];
         storageCacheData();
       }
     }
     if (config.method === 'deleteItemValue') {
       const dataItem = cache_data.find(item => {
-        return item.key === config.key;
+        return item.id === config.id;
       });
       if (dataItem) {
-        dataItem.value = dataItem.value.filter(item => {
-          return item !== config.value;
-        });
+        const index = +config.index;
+        dataItem.value.splice(index, 1);
         dataItem.default = dataItem.value[0];
         storageCacheData();
       }
     }
     if (config.method === 'toggleStatus') {
       const dataItem = cache_data.find(item => {
-        return item.key === config.key;
+        return item.id === config.id;
       });
       if (dataItem) {
         dataItem.open = !dataItem.open;

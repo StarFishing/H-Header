@@ -2,6 +2,7 @@
 const bgJs = chrome.extension.getBackgroundPage();
 let isOpen = bgJs.getIsOpen();
 let editKey = null;
+let editId = null;
 
 // 全局开关
 let button = selector('.h-header__switch');
@@ -14,6 +15,10 @@ function updateCallback() {
 
 function setGlobalKey(key) {
   editKey = key;
+}
+
+function setGlobalId(id) {
+  editId = id;
 }
 
 function updateCurrentStatus(e) {
@@ -61,8 +66,7 @@ let headerCreate = selector('.h-header__create');
 let headerContent = selector('.h-header__create .content');
 // 新增返回
 let createBack = selector('.h-header__create .create-back');
-// // 编辑
-// let editDoc = selector('.item-right .edit');
+
 // 删除
 let deleteIcon = selector('.h-header__create .delete-item');
 // 创建
@@ -84,11 +88,6 @@ const btnSend = selector('.h-header__create .send-value');
 // 输入框内容
 const inputSend = selector('.h-header__create .content-input');
 
-// 创建
-// editDoc.addEventListener('click', () => {
-//   addClass(headerCreate, 'shown');
-// });
-
 actionCreate.addEventListener('click', () => {
   addClass(createDialog, 'shown');
 });
@@ -104,7 +103,7 @@ createBack.addEventListener('click', () => {
   handleBack();
 });
 deleteIcon.addEventListener('click', () => {
-  sendMessage({ key: editKey, method: 'deleteItem' }, patchTemplate);
+  sendMessage({ id: editId, method: 'deleteItem' }, patchTemplate);
   handleBack();
 });
 
@@ -123,16 +122,16 @@ headerContent.addEventListener('click', e => {
   e.stopPropagation();
   const className = e.target.className;
   const dataSet = e.target.dataset;
-  if (!dataSet.value) return;
+  if (!dataSet.index) return;
   if (className.includes('open')) {
     sendMessage(
-      { key: editKey, value: dataSet.value, method: 'openItem' },
+      { id: editId, index: dataSet.index, method: 'openItem' },
       addContent
     );
   }
   if (className.includes('delet')) {
     sendMessage(
-      { key: editKey, value: dataSet.value, method: 'deleteItemValue' },
+      { id: editId, index: dataSet.index, method: 'deleteItemValue' },
       addContent
     );
   }
@@ -146,24 +145,24 @@ inputSend.addEventListener('input', event => {
 
 btnSend.addEventListener('click', () => {
   const value = inputSend.value.trim();
-  sendMessage({ method: 'updateItem', key: editKey, value }, addContent);
+  sendMessage({ method: 'updateItem', id: editId, value }, addContent);
   resetInputSend();
 });
 
 // 列表点击事件统一托管到这里
 parent.addEventListener('click', e => {
   e.stopPropagation();
-  const key = e.target.dataset.key;
-  if (!key) return;
+  const id = e.target.dataset.id;
+  if (!id) return;
 
   const className = e.target.className;
   if (className.includes('edit')) {
     addClass(headerCreate, 'shown');
-    setGlobalKey(key);
-    addContent(key);
+    setGlobalId(id);
+    addContent();
   }
   if (className.includes('toggle-status')) {
-    sendMessage({ key, method: 'toggleStatus' }, patchTemplate);
+    sendMessage({ id, method: 'toggleStatus' }, patchTemplate);
   }
 });
 
@@ -177,14 +176,14 @@ function resetInputSend() {
  * @param {*} key
  */
 function addContent(key) {
-  const currentKey = key || editKey;
+  const currentKey = key || editId;
   const cache_data = bgJs.getCacheData();
   const current_value = cache_data.find(item => {
-    return item.key === currentKey;
+    return item.id === currentKey;
   });
   if (!current_value) return;
   let str = '<ul>';
-  current_value.value.forEach(item => {
+  current_value.value.forEach((item, index) => {
     str += `
     <li class="option-item">
       <div class="item-left">
@@ -198,8 +197,8 @@ function addContent(key) {
         <div class="item-value">${item}</div>
       </div>
       <div class="item-right">
-        <div class="edit open" data-value=${item}>启用</div>
-        <div class="delet" data-value=${item}>删除</div>
+        <div class="edit open" data-index=${index}>启用</div>
+        <div class="delet" data-index=${index}>删除</div>
       </div>
     </li>
     `;
@@ -222,6 +221,7 @@ function handleSave() {
   const config = {
     method: 'add-item',
     value: {
+      id: uuid(),
       key,
       value: valueList,
       open: true,
@@ -253,10 +253,10 @@ function patchTemplate() {
             }</div>
         </div>
         <div class="item-right">
-            <div class="edit" data-key=${data.key}>编辑</div>
+            <div class="edit" data-id=${data.id}>编辑</div>
             <div class="toggle-status  ${
               data.open ? 'warning' : 'success'
-            }" data-key=${data.key}>${data.open ? '禁用' : '启用'}</div>
+            }" data-id=${data.id}>${data.open ? '禁用' : '启用'}</div>
         </div>
     </li>`;
   });

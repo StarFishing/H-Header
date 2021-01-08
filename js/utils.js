@@ -34,7 +34,7 @@ function sendMessage(config, callback) {
 
 function addEventListener(ele, type, callback) {
   ele.addEventListener(type, function (e) {
-    e.stopPropagation();
+    if (type === 'click') e.stopPropagation();
     callback(e);
   });
 }

@@ -55,7 +55,11 @@ function updateCurrentStatus(e) {
   target = null;
 }
 
-button.addEventListener('click', e => {
+// button.addEventListener('click', e => {
+//   updateCurrentStatus(e);
+// });
+
+addEventListener(button, 'click', e => {
   updateCurrentStatus(e);
 });
 
@@ -88,7 +92,11 @@ const btnSend = selector('.h-header__create .send-value');
 // 输入框内容
 const inputSend = selector('.h-header__create .content-input');
 
-actionCreate.addEventListener('click', () => {
+// actionCreate.addEventListener('click', () => {
+//   addClass(createDialog, 'shown');
+// });
+
+addEventListener(actionCreate, 'click', () => {
   addClass(createDialog, 'shown');
 });
 
@@ -99,26 +107,39 @@ function handleBack() {
 }
 
 // 返回
-createBack.addEventListener('click', () => {
+// createBack.addEventListener('click', () => {
+//   handleBack();
+// });
+addEventListener(createBack, 'click', () => {
   handleBack();
 });
-deleteIcon.addEventListener('click', () => {
+// deleteIcon.addEventListener('click', () => {
+//   sendMessage({ id: editId, method: 'deleteItem' }, patchTemplate);
+//   handleBack();
+// });
+addEventListener(deleteIcon, 'click', () => {
   sendMessage({ id: editId, method: 'deleteItem' }, patchTemplate);
   handleBack();
 });
 
-footerConfirm.addEventListener('click', () => {
+// footerConfirm.addEventListener('click', () => {
+//   handleSave();
+//   removeClass(createDialog, 'shown');
+//   handleReset();
+// });
+
+addEventListener(footerConfirm, 'click', () => {
   handleSave();
   removeClass(createDialog, 'shown');
   handleReset();
 });
 
-footerCancel.addEventListener('click', () => {
+addEventListener(footerCancel, 'click', () => {
   removeClass(createDialog, 'shown');
   handleReset();
 });
 
-headerContent.addEventListener('click', e => {
+addEventListener(headerContent, 'click', e => {
   e.stopPropagation();
   const className = e.target.className;
   const dataSet = e.target.dataset;
@@ -137,20 +158,19 @@ headerContent.addEventListener('click', e => {
   }
 });
 
-inputSend.addEventListener('input', event => {
+addEventListener(inputSend, 'input', event => {
   const value = event.target.value;
   if (value.trim()) btnSend.disabled = false;
   else btnSend.disabled = true;
 });
-
-btnSend.addEventListener('click', () => {
+addEventListener(btnSend, 'click', () => {
   const value = inputSend.value.trim();
   sendMessage({ method: 'updateItem', id: editId, value }, addContent);
   resetInputSend();
 });
 
 // 列表点击事件统一托管到这里
-parent.addEventListener('click', e => {
+addEventListener(parent, 'click', e => {
   e.stopPropagation();
   const id = e.target.dataset.id;
   if (!id) return;

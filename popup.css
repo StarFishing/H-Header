@@ -9,6 +9,7 @@
   --button-bg: #477eff;
   --chat-input: #060415;
   --border-light: #8187a2;
+  --box-shadow: rgba(18, 23, 45, 0.6) 0px 8px 24px;
   --scrollbar-thumb: linear-gradient(
     to bottom,
     rgba(43, 88, 118, 0.8),
@@ -69,6 +70,11 @@ li {
 }
 .btn:disabled {
   cursor: not-allowed;
+}
+.ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .h-header__wrapper {
@@ -250,9 +256,9 @@ li {
   cursor: pointer;
 }
 .h-header__create .content {
-  padding-bottom: 40px;
+  box-sizing: border-box;
   overflow-y: overlay;
-  height: calc(100% - 80px);
+  height: calc(100% - 40px - 64px);
 }
 .h-header__create .item-right {
   display: none;
@@ -273,17 +279,45 @@ li {
   overflow: hidden;
 }
 .h-header__create .option-item .item-left .item-value {
-  margin-left: 25px;
+  margin-left: 5px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 .h-header__create .footer {
-  display: flex;
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
+  padding: 10px;
+  box-shadow: var(--box-shadow);
+  backdrop-filter: blur(20px);
+}
+.h-header__create .footer .footer-content {
+  display: flex;
+  border-radius: 8px;
+  padding: 5px;
+  background: black;
+}
+.h-header__create .footer .input-wrapper {
+  border: 1px solid #8187a2;
+  border-radius: 4px;
+  font-size: 12px;
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  padding: 0 6px 0 12px;
+  justify-content: space-between;
+  margin: 0 8px;
+  background-color: #060415;
+}
+.h-header__create .footer .send-value {
+  background-image: url('/img/发送.svg');
+  background-image: url(/img/发送.svg);
+  background-size: 15px 15px;
+  background-repeat: no-repeat;
+  background-position: right;
+  padding-right: 10px;
 }
 .dialog-wrapper {
   position: fixed;
@@ -354,6 +388,7 @@ li {
   right: 0px;
   bottom: 15px;
 }
+
 .content-wrapper .footer .icon {
   width: 30px;
 }

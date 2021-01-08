@@ -1,6 +1,5 @@
 'use strict';
 
-chrome.browserAction.setBadgeText({ text: '2' });
 chrome.browserAction.setBadgeBackgroundColor({ color: [255, 0, 0, 255] });
 
 chrome.contextMenus.create({
@@ -28,19 +27,34 @@ function getCacheData() {
 function storageCacheData() {
   chrome.storage.local.set({ cache_data });
 }
+
+function updateBadge(count) {
+  chrome.browserAction.setBadgeText({ text: count ? count + '' : '' });
+}
+
+function getBadgeByData() {
+  let count = 0;
+  if (!isOpen) return 0;
+  cache_data.forEach(data => {
+    if (data.open && data.default) count++;
+  });
+  return count;
+}
 // 域名匹配
 const development_url_reg = /^https{0,1}:\/\/localhost.*\/api/;
 const replace_development_url = 'http://gogo.bytedance.net/api';
 
 function filterCallback(e) {
   const requestHeaders = e.requestHeaders;
+  let count = 0;
   if (isOpen) {
     cache_data.forEach(header => {
-      if (header.open && header.default)
+      if (header.open && header.default) {
+        count++;
         requestHeaders.push({ name: header.key, value: header.default });
+      }
     });
   }
-
   return { requestHeaders };
 }
 
@@ -98,6 +112,7 @@ function handleMessage(config, origin, callback) {
       }
     }
     storageCacheData();
+    updateBadge(getBadgeByData());
     if (callback) callback();
   }
 }
@@ -107,6 +122,7 @@ function setup() {
   chrome.storage.local.get(['cache_data', 'isOpen'], res => {
     cache_data = res.cache_data || [];
     isOpen = res.isOpen || false;
+    updateBadge(getBadgeByData());
   });
 }
 setup();

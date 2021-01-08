@@ -9,10 +9,6 @@ let button = selector('.h-header__switch');
 // 全局文字
 let status = selector('.toggle-text');
 
-function updateCallback() {
-  console.log('更新成功');
-}
-
 function setGlobalKey(key) {
   editKey = key;
 }
@@ -45,19 +41,12 @@ function updateCurrentStatus(e) {
   status.innerText = isOpen ? '开启' : '关闭';
   bgJs.updateIsOpen(isOpen);
 
-  sendMessage(
-    {
-      method: 'toggle',
-      value: isOpen
-    },
-    updateCallback
-  );
+  sendMessage({
+    method: 'toggle',
+    value: isOpen
+  });
   target = null;
 }
-
-// button.addEventListener('click', e => {
-//   updateCurrentStatus(e);
-// });
 
 addEventListener(button, 'click', e => {
   updateCurrentStatus(e);
@@ -92,10 +81,6 @@ const btnSend = selector('.h-header__create .send-value');
 // 输入框内容
 const inputSend = selector('.h-header__create .content-input');
 
-// actionCreate.addEventListener('click', () => {
-//   addClass(createDialog, 'shown');
-// });
-
 addEventListener(actionCreate, 'click', () => {
   addClass(createDialog, 'shown');
 });
@@ -107,26 +92,13 @@ function handleBack() {
 }
 
 // 返回
-// createBack.addEventListener('click', () => {
-//   handleBack();
-// });
 addEventListener(createBack, 'click', () => {
   handleBack();
 });
-// deleteIcon.addEventListener('click', () => {
-//   sendMessage({ id: editId, method: 'deleteItem' }, patchTemplate);
-//   handleBack();
-// });
 addEventListener(deleteIcon, 'click', () => {
   sendMessage({ id: editId, method: 'deleteItem' }, patchTemplate);
   handleBack();
 });
-
-// footerConfirm.addEventListener('click', () => {
-//   handleSave();
-//   removeClass(createDialog, 'shown');
-//   handleReset();
-// });
 
 addEventListener(footerConfirm, 'click', () => {
   handleSave();

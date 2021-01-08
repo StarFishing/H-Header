@@ -264,7 +264,7 @@ li {
   display: none;
 }
 .h-header__create .option-item {
-  min-height: 30px;
+  min-height: 35px;
 }
 .h-header__create .option-item:hover .item-right {
   display: flex;

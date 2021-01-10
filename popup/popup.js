@@ -182,7 +182,7 @@ function addContent(key) {
       <div class="item-left__status">
         ${
           current_value.default === item
-            ? '<img src="img/确认.svg" class="icon" />'
+            ? '<img src="../img/确认.svg" class="icon" />'
             : ''
         }
         </div>

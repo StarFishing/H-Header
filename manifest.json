@@ -14,7 +14,7 @@
   "browser_action": {
     "default_icon": "img/icon.png",
     "default_title": "Header 配置",
-    "default_popup": "popup.html"
+    "default_popup": "popup/popup.html"
   },
   "content_scripts": [
     {

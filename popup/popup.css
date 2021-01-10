@@ -312,8 +312,7 @@ li {
   background-color: #060415;
 }
 .h-header__create .footer .send-value {
-  background-image: url('/img/发送.svg');
-  background-image: url(/img/发送.svg);
+  background-image: url('../img/发送.svg');
   background-size: 15px 15px;
   background-repeat: no-repeat;
   background-position: right;

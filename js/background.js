@@ -2,12 +2,12 @@
 
 chrome.browserAction.setBadgeBackgroundColor({ color: [255, 0, 0, 255] });
 
-chrome.contextMenus.create({
-  title: '修改 Http-Header',
-  onclick: function () {
-    window.open('about.html');
-  }
-});
+// chrome.contextMenus.create({
+//   title: '修改 Http-Header',
+//   onclick: function () {
+//     window.open('about.html');
+//   }
+// });
 
 let isOpen = false;
 function getIsOpen() {

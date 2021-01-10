@@ -34,11 +34,5 @@
     "http://*/*",
     "https://*/*"
   ],
-  "web_accessible_resources": ["js/start.js"],
-  "homepage_url": "https://www.baidu.com",
-
-  "options_ui": {
-    "page": "options.html",
-    "chrome_style": true
-  }
+  "web_accessible_resources": ["js/start.js"]
 }

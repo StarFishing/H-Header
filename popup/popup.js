@@ -137,6 +137,11 @@ addEventListener(inputSend, 'input', event => {
 });
 addEventListener(btnSend, 'click', () => {
   const value = inputSend.value.trim();
+  const cache_data = bgJs.getCacheData();
+  if (hasRepeatValue(cache_data, editId, value)) {
+    Toast('Value值已存在');
+    return;
+  }
   sendMessage({ method: 'updateItem', id: editId, value }, addContent);
   resetInputSend();
 });
@@ -201,13 +206,27 @@ function addContent(key) {
 
 function handleSave() {
   const key = inputKey.value;
+  const cache_data = bgJs.getCacheData();
+  if (!isAvailableKey(key)) {
+    Toast('不合法的Key');
+    return null;
+  }
+  for (let i = 0; i < cache_data.length; i++) {
+    if (cache_data[i].key === key) {
+      Toast('当前Key已存在');
+      return null;
+    }
+  }
+
   const value = inputValue.value.split('\n');
+  // 过滤空值和重复值
   const valueList = value
     .map(item => {
       return item.replace(/[\r\n]/g, '').trim();
     })
-    .filter(item => {
-      return !!item;
+    .filter((item, index) => {
+      const itemIndex = value.indexOf(item);
+      return !!item && itemIndex === index;
     });
 
   const config = {

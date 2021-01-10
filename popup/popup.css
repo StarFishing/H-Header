@@ -315,7 +315,7 @@ li {
   background-image: url('../img/发送.svg');
   background-size: 15px 15px;
   background-repeat: no-repeat;
-  background-position: right;
+  background-position: 40px;
   padding-right: 10px;
 }
 .dialog-wrapper {
@@ -390,22 +390,4 @@ li {
 
 .content-wrapper .footer .icon {
   width: 30px;
-}
-
-@keyframes fadeIn {
-  from {
-    transform: scale(0);
-  }
-  to {
-    transform: scale(1);
-  }
-}
-
-@keyframes fadeOut {
-  from {
-    transform: scale(1);
-  }
-  to {
-    transform: scale(0);
-  }
 }

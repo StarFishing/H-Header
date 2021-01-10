@@ -52,3 +52,35 @@ function uuid() {
   var uuid = s.join('');
   return uuid;
 }
+
+function findDataItemById(data, id) {
+  return data.find(item => {
+    return item.id === id;
+  });
+}
+/**
+ * 是否包含重复value
+ * @param {*} list
+ * @returns
+ */
+function hasRepeatValue(data, id, value) {
+  const dataItem = findDataItemById(data, id);
+  if (!dataItem) return true;
+  if (value) return dataItem.value.includes(value);
+  for (let i = 0; i < dataItem.value.length; i++) {
+    const itemValue = dataItem.value[i];
+    const itemIndex = dataItem.value.indexOf(itemValue);
+    if (itemIndex !== i) return false;
+  }
+  return true;
+}
+
+/**
+ * 是否合法的key
+ * @param {*} key
+ * @returns
+ */
+function isAvailableKey(key) {
+  const reg = /^[a-zA-Z_][\w\-]*$/;
+  return reg.test(key);
+}

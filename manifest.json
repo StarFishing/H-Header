@@ -34,5 +34,10 @@
     "http://*/*",
     "https://*/*"
   ],
-  "web_accessible_resources": ["js/start.js"]
+  "web_accessible_resources": ["js/start.js"],
+
+  "options_ui": {
+    "page": "options.html",
+    "chrome_style": true
+  }
 }

@@ -2,13 +2,6 @@
 
 chrome.browserAction.setBadgeBackgroundColor({ color: [255, 0, 0, 255] });
 
-// chrome.contextMenus.create({
-//   title: '修改 Http-Header',
-//   onclick: function () {
-//     window.open('about.html');
-//   }
-// });
-
 let isOpen = false;
 function getIsOpen() {
   return isOpen;
@@ -114,7 +107,9 @@ function handleMessage(config, origin, callback) {
   }
 }
 chrome.runtime.onMessage.addListener(handleMessage);
-
+chrome.runtime.onInstalled.addListener(function (e) {
+  'install' == e.reason && window.open('about.html');
+});
 function setup() {
   chrome.storage.local.get(['cache_data', 'isOpen'], res => {
     cache_data = res.cache_data || [];

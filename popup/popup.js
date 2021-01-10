@@ -51,6 +51,7 @@ function updateCurrentStatus(e) {
 addEventListener(button, 'click', e => {
   updateCurrentStatus(e);
 });
+const headerIcon = selector('.h-header__icon');
 
 // 新增按钮
 let actionCreate = selector('.option-item-action');
@@ -80,6 +81,10 @@ const parent = selector('.option-item__wrapper');
 const btnSend = selector('.h-header__create .send-value');
 // 输入框内容
 const inputSend = selector('.h-header__create .content-input');
+
+addEventListener(headerIcon, 'click', () => {
+  window.open('../about.html');
+});
 
 addEventListener(actionCreate, 'click', () => {
   addClass(createDialog, 'shown');

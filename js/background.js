@@ -40,9 +40,6 @@ function getBadgeByData() {
   });
   return count;
 }
-// 域名匹配
-const development_url_reg = /^https{0,1}:\/\/localhost.*\/api/;
-const replace_development_url = 'http://gogo.bytedance.net/api';
 
 function filterCallback(e) {
   const requestHeaders = e.requestHeaders;

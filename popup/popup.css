@@ -164,6 +164,13 @@
   transition: all 0.3s ease-in-out;
   transform: translateX(100%);
 }
+.h-header__create .header-title {
+  color: rgb(255 255 255 / 60%);
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 10px;
+}
 .h-header__create.shown {
   transform: translateX(0);
 }

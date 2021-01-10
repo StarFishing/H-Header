@@ -60,7 +60,8 @@ let headerCreate = selector('.h-header__create');
 let headerContent = selector('.h-header__create .content');
 // 新增返回
 let createBack = selector('.h-header__create .create-back');
-
+// 编辑页标题
+let headerTitle = selector('.h-header__create  .header-title');
 // 删除
 let deleteIcon = selector('.h-header__create .delete-item');
 // 创建
@@ -160,6 +161,7 @@ addEventListener(parent, 'click', e => {
   const className = e.target.className;
   if (className.includes('edit')) {
     addClass(headerCreate, 'shown');
+    headerTitle.innerHTML = findDataItemById(bgJs.getCacheData(), id).key;
     setGlobalId(id);
     addContent();
   }

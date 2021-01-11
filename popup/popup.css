@@ -170,6 +170,8 @@
   overflow: hidden;
   text-overflow: ellipsis;
   padding: 0 10px;
+  text-align: center;
+  white-space: nowrap;
 }
 .h-header__create.shown {
   transform: translateX(0);

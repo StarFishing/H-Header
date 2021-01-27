@@ -16,25 +16,13 @@
     "default_title": "Header 配置",
     "default_popup": "popup/popup.html"
   },
-  "content_scripts": [
-    {
-      "matches": ["<all_urls>"],
-      "js": ["js/start.js"],
-      "run_at": "document_start"
-    }
-  ],
-
   "permissions": [
-    "contextMenus",
-    "tabs",
-    "notifications",
     "webRequest",
     "webRequestBlocking",
     "storage",
     "http://*/*",
     "https://*/*"
   ],
-  "web_accessible_resources": ["js/start.js"],
 
   "options_ui": {
     "page": "options.html",
